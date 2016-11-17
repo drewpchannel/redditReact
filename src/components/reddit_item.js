@@ -5,10 +5,15 @@ const RedditList = (props) => {
   if (!props.redditDL.data) {
     return <div>Loading...</div>;
   }
-  //more dynamic names are needed like a const for redditDL
+  //needs user input for these fields once tested
+  const redditItems = props.redditDL.data.children;
+  const redditItemsList = redditItems.map((elem) => {
+    console.log(elem)
+    return <a key={elem.data.id} href="{elem.data.url}">{elem.data.title}</a>
+  })
   return (
     <div>
-      <p>{props.redditDL.data.children[0].data.url}</p>
+      {redditItemsList}
     </div>
   );
 }

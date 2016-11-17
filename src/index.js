@@ -25,7 +25,6 @@ class App extends Component {
     xhr.send();
   }
   setSubReddit (subReddit) {
-    //needs to be refactored.  putting objects in obj for no reason
     this.loadRedditArray (subReddit);
   }
   render () {
