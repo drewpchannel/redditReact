@@ -12,7 +12,6 @@ class App extends Component {
     };
     this.loadRedditArray ('frogs');
   }
-  // need dynamic search terms to be sent to load array
   loadRedditArray (subReddit) {
     var xhr = new XMLHttpRequest();
     xhr.onload = (data) => {
@@ -27,14 +26,14 @@ class App extends Component {
   }
   setSubReddit (subReddit) {
     //needs to be refactored.  putting objects in obj for no reason
-    this.loadRedditArray (subReddit.subReddit.subReddit);
+    this.loadRedditArray (subReddit);
   }
   render () {
     const setSubReddit = _.debounce((subReddit) => {this.setSubReddit(subReddit)}, 600);
     return (
       <div>
         <SearchBar 
-          updateSubReddit = {subReddit => setSubReddit({subReddit})}
+          updateSubReddit = {subReddit => setSubReddit(subReddit)}
         />
         <RedditList
           redditDL = {this.state.redditDL}

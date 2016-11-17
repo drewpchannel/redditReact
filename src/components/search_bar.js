@@ -13,14 +13,13 @@ class SearchBar extends Component {
     return (
       <div>
         <input 
-          value={this.state.subReddit}
           onChange={event => this.newSubReddit(event.target.value)} />
       </div>
     );
   }
   newSubReddit (subReddit) {
     this.setState({subReddit});
-    this.props.updateSubReddit({subReddit});
+    this.props.updateSubReddit(subReddit);
   }
 }
 
