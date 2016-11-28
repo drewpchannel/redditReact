@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import RedditList from './components/reddit_item';
 import SearchBar from './components/search_bar';
+import SignIn from './components/signin_buttons';
 
 class App extends Component {
   constructor (props) {
@@ -34,6 +35,7 @@ class App extends Component {
         <SearchBar 
           updateSubReddit = {subReddit => setSubReddit(subReddit)}
         />
+        <SignIn />
         <RedditList
           redditDL = {this.state.redditDL}
         />

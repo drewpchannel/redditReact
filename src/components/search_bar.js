@@ -11,8 +11,8 @@ class SearchBar extends Component {
   }
   render () {
     return (
-      <div>
-        <input 
+      <div className="SearchBar">
+        <input className="inputBar"
           onChange={event => this.newSubReddit(event.target.value)} />
       </div>
     );

@@ -1,0 +1,15 @@
+.g-signin2 {
+  display: inline-flex;
+  line-height: 50px;
+}
+
+.SearchBar {
+  display: inline-flex;
+  margin-top: 10px;
+  width: 500px;
+}
+
+.inputBar {
+  width: 100%;
+  margin-bottom: 30px;
+}
