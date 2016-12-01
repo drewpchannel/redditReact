@@ -4,6 +4,9 @@ import React, { Component } from 'react';
 class SignIn extends Component {
   constructor (props) {
     super(props);
+    this.state = ({
+      userEmail: 'default'
+    })
   }
   componentDidMount () {
     this.onSignIn()
@@ -11,11 +14,17 @@ class SignIn extends Component {
   onSignIn () {
     //find a way to replace the setTimeout.  mayeb redo google login? https://developers.google.com/identity/sign-in/web/reference
     if (typeof(gapi.auth2) === "object") {
-      window.setTimeout(()=>
+      let timeoutID = window.setTimeout(()=>
         {
-          if (gapi.auth2.getAuthInstance().currentUser.Ab.w3 !== undefined) {
-            console.log(gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3)
-          }  
+          if (timeoutID !== 2) {
+            window.clearTimeout(timeoutID);
+          } 
+          else {
+            if (gapi.auth2.getAuthInstance().currentUser.Ab.w3 !== undefined) {
+              this.props.findUserEmail(gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3)
+              this.setState({userEmail: gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3})
+            }  
+          }
         }, 500)
     }
   }

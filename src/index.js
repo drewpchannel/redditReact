@@ -9,7 +9,8 @@ class App extends Component {
     super(props);
     this.state = {
       redditDL: {},
-      subReddit: ''
+      subReddit: '',
+      userEmail: 'default'
     };
     this.loadRedditArray ('frogs');
   }
@@ -28,6 +29,9 @@ class App extends Component {
   setSubReddit (subReddit) {
     this.loadRedditArray (subReddit);
   }
+  setUserEmail (userEmail) {
+    this.setState({userEmail});
+  }
   render () {
     const setSubReddit = _.debounce((subReddit) => {this.setSubReddit(subReddit)}, 600);
     return (
@@ -35,7 +39,9 @@ class App extends Component {
         <SearchBar 
           updateSubReddit = {subReddit => setSubReddit(subReddit)}
         />
-        <SignIn />
+        <SignIn 
+          findUserEmail = {userEmail => this.setUserEmail(userEmail)}
+        />
         <RedditList
           redditDL = {this.state.redditDL}
         />
