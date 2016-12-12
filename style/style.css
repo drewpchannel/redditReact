@@ -13,3 +13,8 @@
   width: 100%;
   margin-bottom: 30px;
 }
+
+.redditItemBox {
+  border: solid grey 3px;
+  margin: 3px;
+}

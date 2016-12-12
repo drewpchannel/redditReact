@@ -12,7 +12,7 @@ class App extends Component {
       subReddit: '',
       userEmail: 'default'
     };
-    this.loadRedditArray ('gaming');
+    this.loadRedditArray ('frogs');
   }
   loadRedditArray (subReddit) {
     var xhr = new XMLHttpRequest();

@@ -7,38 +7,43 @@ const RedditList = (props) => {
   }
   const redditItems = props.redditDL.data.children;
   const redditItemsList = redditItems.map((elem) => {
-    // console.log(elem.data)
     let imageDefault = "http://images.clipartpanda.com/white-cloud-clipart-no-background-13270607091459405201simplecloud-bw.svg";
+    let imageHeight = 300;
+    let imageWidth = 300;
     let permaLinks = `https://www.reddit.com${elem.data.permalink}`;
-/*    if (shorterTitle.length > 50) {
-      shorterTitle = shorterTitle.slice(0, 60) + "...";
-    }*/
+    const scaleImageWidth = (height, width) => {
+      let newWidth = height/width * 300;
+      return newWidth;
+    }
     if (elem.data.preview !== undefined) {
-      if (elem.data.preview.images[0].variants.gif !== undefined) { 
-        console.log("gif works as " + elem.data.preview.images[0].variants.gif.source)
-        imageDefault = elem.data.preview.images[0].variants.gif.source.url;
+      const redditPost = elem.data.preview.images[0]
+      if (redditPost.variants.gif !== undefined) { 
+        imageDefault = redditPost.variants.gif.source.url;
+        imageWidth = redditPost.variants.gif.source.width;
+        console.log(redditPost.variants.gif.source.width)
       } else {
-        console.log("non gif works")
-        imageDefault = elem.data.preview.images[0].source.url;
+        imageDefault = redditPost.source.url;
+        imageWidth = scaleImageWidth(redditPost.source.width, redditPost.source.height);
+        console.log(redditPost.source.width)
       }
     }
     //needs user input for these fields once tested
     let imageStyle = {
-      height: 300,
-      width: 300,
+      height: imageHeight,
+      width: imageWidth,
       display: "inline-block"
     }
     //might need better word wrapping
     let divSize = {
-      height: 300,
+      height: imageHeight + 6,
       width: 800
     }
     let linkSize = {
-      width:400,
+      width: 794 - imageWidth,
       display: "inline-block"
     }
     return (
-      <div key={elem.data.id + "div"} style={divSize}>
+      <div key={elem.data.id + "div"} style={divSize} className="redditItemBox">
           <img key={elem.data.id + "img"} src={imageDefault} style={imageStyle} />
           <div style={linkSize}>
             <a key={elem.data.id} href={permaLinks}>{elem.data.title}</a>
