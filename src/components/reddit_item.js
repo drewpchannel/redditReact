@@ -15,11 +15,11 @@ const RedditList = (props) => {
       let newWidth = width/height * 300;
       return newWidth;
     }
-    if (elem.data.preview !== undefined) {
+    if (elem.data.preview) {
       const redditPost = elem.data.preview.images[0]
-      if (redditPost.variants.gif !== undefined) { 
+      if (redditPost.variants.gif) { 
         imageDefault = redditPost.variants.gif.source.url;
-        imageWidth = redditPost.variants.gif.source.width;
+        imageHeight = scaleImageHeight(redditPost.variants.gif.source.width, redditPost.variants.gif.source.height);
       } else {
         imageDefault = redditPost.source.url;
         imageHeight = scaleImageHeight(redditPost.source.width, redditPost.source.height);

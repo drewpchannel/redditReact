@@ -12,7 +12,7 @@ class App extends Component {
       subReddit: '',
       userEmail: 'default'
     };
-    this.loadRedditArray ('frogs');
+    this.loadRedditArray ();
   }
   loadRedditArray (subReddit) {
     var xhr = new XMLHttpRequest();
@@ -23,7 +23,13 @@ class App extends Component {
         })
       }
     }
-    xhr.open("GET", `https://www.reddit.com/r/${subReddit}.json`);
+    let subRedditUrl;
+    if (!subReddit) {
+      subRedditUrl = 'https://www.reddit.com/.json'
+    } else {
+      subRedditUrl = `https://www.reddit.com/r/${subReddit}.json`
+    }
+    xhr.open("GET", subRedditUrl);
     xhr.send();
   }
   setSubReddit (subReddit) {
