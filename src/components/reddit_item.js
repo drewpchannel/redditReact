@@ -11,8 +11,8 @@ const RedditList = (props) => {
     let imageHeight = 300;
     let imageWidth = 300;
     let permaLinks = `https://www.reddit.com${elem.data.permalink}`;
-    const scaleImageWidth = (height, width) => {
-      let newWidth = height/width * 300;
+    const scaleImageHeight = (height, width) => {
+      let newWidth = width/height * 300;
       return newWidth;
     }
     if (elem.data.preview !== undefined) {
@@ -20,11 +20,9 @@ const RedditList = (props) => {
       if (redditPost.variants.gif !== undefined) { 
         imageDefault = redditPost.variants.gif.source.url;
         imageWidth = redditPost.variants.gif.source.width;
-        console.log(redditPost.variants.gif.source.width)
       } else {
         imageDefault = redditPost.source.url;
-        imageWidth = scaleImageWidth(redditPost.source.width, redditPost.source.height);
-        console.log(redditPost.source.width)
+        imageHeight = scaleImageHeight(redditPost.source.width, redditPost.source.height);
       }
     }
     //needs user input for these fields once tested
