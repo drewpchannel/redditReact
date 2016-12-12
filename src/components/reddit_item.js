@@ -14,7 +14,13 @@ const RedditList = (props) => {
       shorterTitle = shorterTitle.slice(0, 60) + "...";
     }*/
     if (elem.data.preview !== undefined) {
-      imageDefault = elem.data.preview.images[0].source.url;
+      if (elem.data.preview.images[0].variants.gif !== undefined) { 
+        console.log("gif works as " + elem.data.preview.images[0].variants.gif.source)
+        imageDefault = elem.data.preview.images[0].variants.gif.source.url;
+      } else {
+        console.log("non gif works")
+        imageDefault = elem.data.preview.images[0].source.url;
+      }
     }
     //needs user input for these fields once tested
     let imageStyle = {
