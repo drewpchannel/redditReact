@@ -14,13 +14,18 @@ class App extends Component {
     };
     this.loadRedditArray ();
   }
-  loadRedditArray (subReddit) {
+  loadRedditArray (subReddit, option) {
     var xhr = new XMLHttpRequest();
     xhr.onload = (data) => {
       if (xhr.readyState === 4) {
+        //correct way to do this?
+        if(option === 'addPosts') {
+          console.log(redditDL)
+        } else {
           this.setState({
-          redditDL: JSON.parse(xhr.responseText)
-        })
+            redditDL: JSON.parse(xhr.responseText)
+          })
+        }
       }
     }
     let subRedditUrl;
@@ -35,6 +40,10 @@ class App extends Component {
   }
   setSubReddit (subReddit) {
     this.loadRedditArray (subReddit);
+  }
+  //this.subR?
+  loadAdditionalPosts () {
+    this.loadRedditArray(this.subReddit, 'addPosts')
   }
   setUserEmail (userEmail) {
     this.setState({userEmail});
