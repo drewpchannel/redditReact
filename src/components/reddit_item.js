@@ -6,7 +6,12 @@ const RedditList = (props) => {
     return <div>Loading...</div>;
   }
   const redditItems = props.redditDL.data.children;
+  let postCount = 0;
   const redditItemsList = redditItems.map((elem) => {
+    postCount++;
+    if (postCount === 25) {
+      console.log(elem)
+    }
     let imageDefault = "http://images.clipartpanda.com/white-cloud-clipart-no-background-13270607091459405201simplecloud-bw.svg";
     let imageHeight = 300;
     let imageWidth = 300;

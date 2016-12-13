@@ -24,6 +24,7 @@ class App extends Component {
       }
     }
     let subRedditUrl;
+    //change to check user setting
     if (!subReddit) {
       subRedditUrl = 'https://www.reddit.com/.json'
     } else {
