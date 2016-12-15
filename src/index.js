@@ -14,9 +14,10 @@ class App extends Component {
       option: 0
     };
     this.loadRedditArray ();
+    this.redditDLArray = '';
   }
   loadRedditArray (option) {
-    var xhr = new XMLHttpRequest();
+    const xhr = new XMLHttpRequest();
     xhr.onload = (data) => {
       if (xhr.readyState === 4) {
         //correct way to do this?
@@ -24,24 +25,25 @@ class App extends Component {
           let x = JSON.parse(xhr.responseText);
           x.data.children.forEach((elem) => 
               {
-                let combineRedditDl = this.state.redditDL.data.children;
+                let combineRedditDl = this.redditDLArray;
                 combineRedditDl.push(elem);
                 let makeRedditDlObject = this.state.redditDL;
                 makeRedditDlObject.data.children = combineRedditDl;
                 this.setState({redditDL: makeRedditDlObject})
+                this.redditDLArray = this.state.redditDL.data.children;
               }
             )
-/*          this.setState({
-            redditDL: addToRedditDl
-          });*/
         } else if (option === 'newSub') {
           this.setState({
             redditDL: JSON.parse(xhr.responseText)
           })
+          this.setState({option: this.redditDLArray.length});
+          this.redditDLArray = this.state.redditDL.data.children;
         } else {
           this.setState({
             redditDL: JSON.parse(xhr.responseText)
           });
+          this.redditDLArray = this.state.redditDL.data.children;
         }
       }
     }
@@ -54,13 +56,11 @@ class App extends Component {
   }
   setSubReddit (subReddit) {
     this.setState({subReddit: `https://www.reddit.com/r/${subReddit}/.json`})
-    this.setState({option: 0});
     this.loadRedditArray ('newSub');
   }
   //this.subR? addposts string the best way?
   loadAdditionalPosts () {
-    this.setState({option: this.state.option + 25});
-    this.setState({subReddit: `${this.state.subReddit}?count=${this.state.option}&after=${this.state.redditDL.data.children[this.state.redditDL.data.children.length - 1].data.name}`});
+    this.setState({subReddit: `${this.state.subReddit}?count=${this.state.option}&after=${this.redditDLArray[this.redditDLArray.length - 1].data.name}`});
     this.loadRedditArray ('addPosts');
   }
   setUserEmail (userEmail) {

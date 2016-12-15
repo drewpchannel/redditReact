@@ -14,7 +14,7 @@ class RedditList extends Component {
   }
   countScrolls () {
     this.setState({scrolls: this.state.scrolls + 1});
-    if (this.state.scrolls % 2 === 0) {
+    if (this.state.scrolls % 11 === 0) {
       this.props.loadMorePosts();
     }
   }
