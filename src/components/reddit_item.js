@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import jsStyle from './jsStyles/jsStyle';
 
 class RedditList extends Component {
   constructor (props) {
@@ -42,8 +43,6 @@ class RedditList extends Component {
           imageHeight = scaleImageHeight(redditPost.source.width, redditPost.source.height);
         }
       }
-      //new file for styles but a js file?
-      //needs user input for these fields once tested
       let imageStyle = {
         height: imageHeight,
         width: imageWidth,

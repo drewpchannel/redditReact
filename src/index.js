@@ -5,6 +5,7 @@ import SearchBar from './components/search_bar';
 import SignIn from './components/signin_buttons';
 
 //break up this file into components
+//setting for slower internet
 
 class App extends Component {
   constructor (props) {
