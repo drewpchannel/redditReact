@@ -18,6 +18,7 @@ class SearchBar extends Component {
     );
   }
   newSubReddit (subReddit) {
+    //maybe add something to slow this fx down
     this.setState({subReddit});
     this.props.updateSubReddit(subReddit);
   }

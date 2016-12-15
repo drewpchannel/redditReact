@@ -9,41 +9,59 @@ class App extends Component {
     super(props);
     this.state = {
       redditDL: {},
-      subReddit: '',
-      userEmail: 'default'
+      subReddit: 'https://www.reddit.com/.json',
+      userEmail: 'default',
+      option: 0
     };
     this.loadRedditArray ();
   }
-  loadRedditArray (subReddit, option) {
+  loadRedditArray (option) {
     var xhr = new XMLHttpRequest();
     xhr.onload = (data) => {
       if (xhr.readyState === 4) {
         //correct way to do this?
         if(option === 'addPosts') {
-          console.log(redditDL)
-        } else {
+          let x = JSON.parse(xhr.responseText);
+          x.data.children.forEach((elem) => 
+              {
+                let combineRedditDl = this.state.redditDL.data.children;
+                combineRedditDl.push(elem);
+                let makeRedditDlObject = this.state.redditDL;
+                makeRedditDlObject.data.children = combineRedditDl;
+                this.setState({redditDL: makeRedditDlObject})
+              }
+            )
+/*          this.setState({
+            redditDL: addToRedditDl
+          });*/
+        } else if (option === 'newSub') {
           this.setState({
             redditDL: JSON.parse(xhr.responseText)
           })
+        } else {
+          this.setState({
+            redditDL: JSON.parse(xhr.responseText)
+          });
         }
       }
     }
-    let subRedditUrl;
-    //change to check user setting
-    if (!subReddit) {
-      subRedditUrl = 'https://www.reddit.com/.json'
+    if(option) {
+      xhr.open("GET", this.state.subReddit);
     } else {
-      subRedditUrl = `https://www.reddit.com/r/${subReddit}.json`
+      xhr.open("GET", this.state.subReddit);
     }
-    xhr.open("GET", subRedditUrl);
     xhr.send();
   }
   setSubReddit (subReddit) {
-    this.loadRedditArray (subReddit);
+    this.setState({subReddit: `https://www.reddit.com/r/${subReddit}/.json`})
+    this.setState({option: 0});
+    this.loadRedditArray ('newSub');
   }
-  //this.subR?
+  //this.subR? addposts string the best way?
   loadAdditionalPosts () {
-    this.loadRedditArray(this.subReddit, 'addPosts')
+    this.setState({option: this.state.option + 25});
+    this.setState({subReddit: `${this.state.subReddit}?count=${this.state.option}&after=${this.state.redditDL.data.children[this.state.redditDL.data.children.length - 1].data.name}`});
+    this.loadRedditArray ('addPosts');
   }
   setUserEmail (userEmail) {
     this.setState({userEmail});
@@ -53,6 +71,7 @@ class App extends Component {
     return (
       <div>
         <SearchBar 
+        //need update subreddit state 
           updateSubReddit = {subReddit => setSubReddit(subReddit)}
         />
         <SignIn 
@@ -60,6 +79,7 @@ class App extends Component {
         />
         <RedditList
           redditDL = {this.state.redditDL}
+          loadMorePosts = {this.loadAdditionalPosts.bind(this)}
         />
       </div>
     );

@@ -8,12 +8,15 @@ class RedditList extends Component {
     }
   }
   componentDidMount () {
-    const count = this
-    const countLimit = _.throttle(this.countScrolls, 1000)
+    const count = this;
+    const countLimit = _.throttle(this.countScrolls, 1000);
     window.addEventListener('scroll', countLimit.bind(this));
   }
   countScrolls () {
-    this.setState({scrolls: this.state.scrolls + 1})
+    this.setState({scrolls: this.state.scrolls + 1});
+    if (this.state.scrolls % 2 === 0) {
+      this.props.loadMorePosts();
+    }
   }
   render() {
     if (!this.props.redditDL.data) {
