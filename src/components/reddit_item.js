@@ -15,7 +15,7 @@ class RedditList extends Component {
   }
   countScrolls () {
     this.setState({scrolls: this.state.scrolls + 1});
-    if (this.state.scrolls % 11 === 0) {
+    if (this.state.scrolls % 7 === 0) {
       this.props.loadMorePosts();
     }
   }
@@ -46,7 +46,6 @@ class RedditList extends Component {
       let imageStyle = {
         height: imageHeight,
         width: imageWidth,
-        display: "inline-block"
       }
       //might need better word wrapping
       let divSize = {
@@ -72,7 +71,7 @@ class RedditList extends Component {
       }
       return (
         <div key={elem.data.id + "div"} style={divSize} className="redditItemBox" >
-            <img key={elem.data.id + "img"} src={imageDefault} style={imageStyle} />
+            <img key={elem.data.id + "img"} src={imageDefault} style={imageStyle} className="redditItemImage" />
             <div style={linkSize}>
               <a key={elem.data.id} href={permaLinks}>{elem.data.title}</a>
               <br />

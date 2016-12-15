@@ -17,4 +17,10 @@
 .redditItemBox {
   border: solid grey 3px;
   margin: 3px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.redditItemImage {
+
 }
