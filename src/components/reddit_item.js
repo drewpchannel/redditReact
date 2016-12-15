@@ -42,6 +42,7 @@ class RedditList extends Component {
           imageHeight = scaleImageHeight(redditPost.source.width, redditPost.source.height);
         }
       }
+      //new file for styles but a js file?
       //needs user input for these fields once tested
       let imageStyle = {
         height: imageHeight,
@@ -57,11 +58,28 @@ class RedditList extends Component {
         width: 794 - imageWidth,
         display: "inline-block"
       }
+      let buttonStyle = {
+        width: 80,
+        height: 10,
+        fontSize: 10,
+        lineHeight: 0
+      }
+      function bTextChg (){
+        if (document.getElementById(this.data.id + 'button').innerHTML === 'Comments') {
+          document.getElementById(this.data.id + 'button').innerHTML = 'Close';
+        } else {
+          document.getElementById(this.data.id + 'button').innerHTML = 'Comments';
+        }
+      }
       return (
         <div key={elem.data.id + "div"} style={divSize} className="redditItemBox" >
             <img key={elem.data.id + "img"} src={imageDefault} style={imageStyle} />
             <div style={linkSize}>
               <a key={elem.data.id} href={permaLinks}>{elem.data.title}</a>
+              <br />
+              <a href={`https://www.reddit.com/user/${elem.data.author}`}>By: {elem.data.author}</a>
+              <br />
+              <button style={buttonStyle} id={elem.data.id + "button"} onClick={bTextChg.bind(elem)}>Comments</button>
             </div>
         </div>
       );
