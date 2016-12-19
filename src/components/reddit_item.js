@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import jsStyle from './jsStyles/jsStyle';
+import jsStyle from './jsStyles/jsStyle'; 
+import CommentButton from './comments_button'
 
 class RedditList extends Component {
   constructor (props) {
@@ -78,6 +79,7 @@ class RedditList extends Component {
               <a href={`https://www.reddit.com/user/${elem.data.author}`}>By: {elem.data.author}</a>
               <br />
               <button style={buttonStyle} id={elem.data.id + "button"} onClick={bTextChg.bind(elem)}>Comments</button>
+              <CommentButton />
             </div>
         </div>
       );
