@@ -25,7 +25,7 @@ class App extends Component {
       if (xhr.readyState === 4) {
         //correct way to do this?
         if(option === 'addPosts') {
-          let x = JSON.parse(xhr.responseText);
+          const x = JSON.parse(xhr.responseText);
           x.data.children.forEach((elem) => 
               {
                 let combineRedditDl = this.redditDLArray;

@@ -57,29 +57,23 @@ class RedditList extends Component {
         width: 794 - imageWidth,
         display: "inline-block"
       }
-      let buttonStyle = {
-        width: 80,
-        height: 10,
-        fontSize: 10,
-        lineHeight: 0
-      }
-      function bTextChg (){
-        if (document.getElementById(this.data.id + 'button').innerHTML === 'Comments') {
-          document.getElementById(this.data.id + 'button').innerHTML = 'Close';
-        } else {
-          document.getElementById(this.data.id + 'button').innerHTML = 'Comments';
-        }
+      function boxSizeChanger (){
+        document.getElementById(`${elem.data.id}div`).style.height='445px'
+        document.getElementById(`${elem.data.id}div`).style.height = `${imageHeight}px`;
       }
       return (
-        <div key={elem.data.id + "div"} style={divSize} className="redditItemBox" >
+        <div key={elem.data.id + "div"} id={elem.data.id + "div"} style={divSize} className="redditItemBox" >
             <img key={elem.data.id + "img"} src={imageDefault} style={imageStyle} className="redditItemImage" />
             <div style={linkSize}>
               <a key={elem.data.id} href={permaLinks}>{elem.data.title}</a>
               <br />
               <a href={`https://www.reddit.com/user/${elem.data.author}`}>By: {elem.data.author}</a>
               <br />
-              <button style={buttonStyle} id={elem.data.id + "button"} onClick={bTextChg.bind(elem)}>Comments</button>
-              <CommentButton />
+              <CommentButton 
+                currentRedditPost={elem} 
+                commentsJSON={permaLinks} 
+              />
+              <button onClick={boxSizeChanger}>bigger box</button>
             </div>
         </div>
       );
