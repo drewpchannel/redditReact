@@ -17,6 +17,7 @@ class App extends Component {
       userEmail: 'default',
       option: 0
     };
+    this.saveSubRedditCount;
     this.loadRedditArray ();
     this.redditDLArray = '';
   }
@@ -52,7 +53,7 @@ class App extends Component {
       }
     }
     if(option) {
-      xhr.open("GET", this.state.subReddit);
+      xhr.open("GET", this.saveSubRedditCount);
     } else {
       xhr.open("GET", this.state.subReddit);
     }
@@ -64,7 +65,7 @@ class App extends Component {
   }
   //this.subR? addposts string the best way?
   loadAdditionalPosts () {
-    this.setState({subReddit: `${this.state.subReddit}?count=${this.state.option}&after=${this.redditDLArray[this.redditDLArray.length - 1].data.name}`});
+    this.saveSubRedditCount = `${this.state.subReddit}?count=${this.state.option}&after=${this.redditDLArray[this.redditDLArray.length - 1].data.name}`;
     this.loadRedditArray ('addPosts');
   }
   setUserEmail (userEmail) {
