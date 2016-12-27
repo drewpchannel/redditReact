@@ -6,6 +6,7 @@ import SignIn from './components/signin_buttons';
 
 //break up this file into components
 //setting for slower internet 
+//need to rename a lot of these components
 
 class App extends Component {
   constructor (props) {
