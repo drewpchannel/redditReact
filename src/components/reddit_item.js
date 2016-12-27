@@ -25,7 +25,7 @@ class RedditList extends Component {
     }
     const redditItems = this.props.redditDL.data.children;
     let redditList = redditItemsList(redditItems);
-    console.log('rendering some posts...')
+    console.log(redditList)
     return (
       <div>
         {redditList}
