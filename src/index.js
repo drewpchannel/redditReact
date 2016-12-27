@@ -27,16 +27,16 @@ class App extends Component {
         //correct way to do this?
         if(option === 'addPosts') {
           const x = JSON.parse(xhr.responseText);
+          let combineRedditDl = this.redditDLArray;
+          let makeRedditDlObject = this.state.redditDL;
           x.data.children.forEach((elem) => 
               {
-                let combineRedditDl = this.redditDLArray;
                 combineRedditDl.push(elem);
-                let makeRedditDlObject = this.state.redditDL;
                 makeRedditDlObject.data.children = combineRedditDl;
-                this.setState({redditDL: makeRedditDlObject})
                 this.redditDLArray = this.state.redditDL.data.children;
               }
             )
+          this.setState({redditDL: makeRedditDlObject})
         } else if (option === 'newSub') {
           this.setState({
             redditDL: JSON.parse(xhr.responseText)

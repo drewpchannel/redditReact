@@ -14,7 +14,7 @@ class RedditList extends Component {
   }
   countScrolls () {
     this.scrolls++;
-    if (this.scrolls % 7 === 0) {
+    if (this.scrolls % 6 === 0) {
       console.log('time to load more posts')
       this.props.loadMorePosts();
     }
@@ -25,7 +25,7 @@ class RedditList extends Component {
     }
     const redditItems = this.props.redditDL.data.children;
     let redditList = redditItemsList(redditItems);
-    console.log(redditList)
+    console.log('rendering some posts...')
     return (
       <div>
         {redditList}
