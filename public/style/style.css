@@ -1,0 +1,26 @@
+.g-signin2 {
+  display: inline-flex;
+  line-height: 50px;
+}
+
+.SearchBar {
+  display: inline-flex;
+  margin-top: 10px;
+  width: 500px;
+}
+
+.inputBar {
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.redditItemBox {
+  border: solid grey 3px;
+  margin: 3px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.redditItemImage {
+
+}

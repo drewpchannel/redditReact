@@ -13,6 +13,7 @@ class SignIn extends Component {
   }
   onSignIn () {
     //find a way to replace the setTimeout.  mayeb redo google login? https://developers.google.com/identity/sign-in/web/reference
+    console.log(typeof gapi)
     if (typeof gapi !== undefined) {
       if (typeof(gapi.auth2) === "object") {
         let timeoutID = window.setTimeout(()=>
