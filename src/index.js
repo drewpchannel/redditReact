@@ -14,10 +14,10 @@ class App extends Component {
     this.state = {
       redditDL: {},
       subReddit: 'https://www.reddit.com/.json',
-      userEmail: 'default',
-      option: 0
+      userEmail: 'default'
     };
-    this.saveSubRedditCount;
+    this.countPosts = 0;
+    this.subRedditURL;
     this.loadRedditArray ();
     this.redditDLArray = '';
   }
@@ -27,6 +27,7 @@ class App extends Component {
       if (xhr.readyState === 4) {
         //correct way to do this?
         if(option === 'addPosts') {
+
           const x = JSON.parse(xhr.responseText);
           let combineRedditDl = this.redditDLArray;
           let makeRedditDlObject = this.state.redditDL;
@@ -42,9 +43,10 @@ class App extends Component {
           this.setState({
             redditDL: JSON.parse(xhr.responseText)
           })
-          this.setState({option: this.redditDLArray.length});
+          this.countPosts = this.countPosts + this.redditDLArray.length;
           this.redditDLArray = this.state.redditDL.data.children;
         } else {
+
           this.setState({
             redditDL: JSON.parse(xhr.responseText)
           });
@@ -53,19 +55,20 @@ class App extends Component {
       }
     }
     if(option) {
-      xhr.open("GET", this.saveSubRedditCount);
+      xhr.open("GET", this.subRedditURL);
     } else {
       xhr.open("GET", this.state.subReddit);
     }
     xhr.send();
   }
   setSubReddit (subReddit) {
-    this.setState({subReddit: `https://www.reddit.com/r/${subReddit}/.json`})
+    this.subRedditURL = `https://www.reddit.com/r/${subReddit}/.json`;
     this.loadRedditArray ('newSub');
   }
   //this.subR? addposts string the best way?
   loadAdditionalPosts () {
-    this.saveSubRedditCount = `${this.state.subReddit}?count=${this.state.option}&after=${this.redditDLArray[this.redditDLArray.length - 1].data.name}`;
+    this.countPosts = this.countPosts + 25;
+    this.subRedditURL = `${this.subRedditURL}?count=${this.countPosts}&after=${this.redditDLArray[this.redditDLArray.length - 1].data.name}`;
     this.loadRedditArray ('addPosts');
   }
   setUserEmail (userEmail) {
