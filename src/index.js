@@ -13,11 +13,10 @@ class App extends Component {
     super(props);
     this.state = {
       redditDL: {},
-      subReddit: 'https://www.reddit.com/.json',
       userEmail: 'default'
     };
     this.countPosts = 0;
-    this.subRedditURL;
+    this.subRedditURL = 'https://www.reddit.com/.json';
     this.loadRedditArray ();
     this.redditDLArray = '';
   }
@@ -57,7 +56,7 @@ class App extends Component {
     if(option) {
       xhr.open("GET", this.subRedditURL);
     } else {
-      xhr.open("GET", this.state.subReddit);
+      xhr.open("GET", this.subRedditURL);
     }
     xhr.send();
   }
