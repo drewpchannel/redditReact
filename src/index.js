@@ -83,6 +83,7 @@ class App extends Component {
         />
         <SignIn 
           findUserEmail = {userEmail => this.setUserEmail(userEmail)}
+          userEmailState = {this.state.userEmail}
         />
         <RedditList
           redditDL = {this.state.redditDL}
