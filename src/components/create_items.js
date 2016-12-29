@@ -1,7 +1,7 @@
 import React from 'react';
 import CommentButton from './comments_button';
 
-const redditItemsList = (redditItems) => {
+const redditItemsList = (redditItems, redditListRef) => {
   let redditItemsComplete = redditItems.map((elem) => {
     let imageDefault = "http://images.clipartpanda.com/white-cloud-clipart-no-background-13270607091459405201simplecloud-bw.svg";
     let imageHeight = 300;
@@ -35,11 +35,19 @@ const redditItemsList = (redditItems) => {
       display: "inline-block"
     }
     function boxSizeChanger (){
-      document.getElementById(`${elem.data.id}div`).style.height='445px'
-      document.getElementById(`${elem.data.id}div`).style.height = `${imageHeight}px`;
+      const redditItemref = redditListRef.refs[elem.data.id];
+      if (!redditItemref.originalHeight) {
+        console.log('detects and tries to set orig height')
+        redditItemref.originalHeight = redditItemref.style.height;
+      }
+      if (redditItemref.style.height === redditItemref.originalHeight) {
+        redditItemref.style.height = '700px';
+      } else {
+        redditItemref.style.height = redditItemref.originalHeight;
+      }
     }
     return (
-      <div key={elem.data.id + "div"} id={elem.data.id + "div"} style={divSize} className="redditItemBox" >
+      <div key={elem.data.id + "div"} id={elem.data.id + "div"} style={divSize} className="redditItemBox" ref={elem.data.id} >
           <img key={elem.data.id + "img"} src={imageDefault} style={imageStyle} className="redditItemImage" />
           <div style={linkSize}>
             <a key={elem.data.id} href={permaLinks}>{elem.data.title}</a>

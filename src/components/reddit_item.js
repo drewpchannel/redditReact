@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import jsStyle from './jsStyles/jsStyle'; 
 import redditItemsList from './create_items';
 
+//really need to make variable names more clear
+
 class RedditList extends Component {
   constructor (props) {
     super(props);
@@ -23,7 +25,7 @@ class RedditList extends Component {
       return <div>Loading...</div>;
     }
     const redditItems = this.props.redditDL.data.children;
-    let redditList = redditItemsList(redditItems);
+    let redditList = redditItemsList(redditItems, this);
     return (
       <div>
         {redditList}

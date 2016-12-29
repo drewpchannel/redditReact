@@ -7,6 +7,8 @@ import SignIn from './components/signin_buttons';
 //break up this file into components
 //setting for slower internet 
 //need to rename a lot of these components
+//setup readme with links
+//check subreds are loading as fast as main
 
 class App extends Component {
   constructor (props) {
