@@ -42,11 +42,13 @@ class CommentButton extends Component {
       );
     }
     for (var x = 0; x < 5; x++) {
-      newCommentsArray.push(
-          <p key={this.currentRedditPost.id + "comments" + x}>
-            {redditCommentsJSON[1].data.children[x].data.author}: {redditCommentsJSON[1].data.children[x].data.body}
-          </p>
-      );
+      if (redditCommentsJSON[1].data.children[x]){
+        newCommentsArray.push(
+            <p key={this.currentRedditPost.id + "comments" + x}>
+              {redditCommentsJSON[1].data.children[x].data.author}: {redditCommentsJSON[1].data.children[x].data.body}
+            </p>
+        );
+      }
     }
     return newCommentsArray;
   }
