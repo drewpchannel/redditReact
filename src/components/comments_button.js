@@ -11,6 +11,7 @@ class CommentButton extends Component {
     this.currentRedditPost = this.props.currentRedditPost.data;
   }
   //switch to refs or data or state?
+  //not a huge fan of the callback setup in this file
   buttonTextChg (){
     if (document.getElementById(this.currentRedditPost.id + 'button').innerHTML === 'Comments') {
       document.getElementById(this.currentRedditPost.id + 'button').innerHTML = 'Close';
