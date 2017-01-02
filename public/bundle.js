@@ -20046,7 +20046,6 @@
 	    };
 	    //might need better word wrapping
 	    var divSize = {
-	      height: imageHeight + 6,
 	      width: 800
 	    };
 	    var linkSize = {
@@ -20086,13 +20085,9 @@
 	        _react2.default.createElement('br', null),
 	        _react2.default.createElement(_comments_button2.default, {
 	          currentRedditPost: elem,
-	          commentsJSON: permaLinks
-	        }),
-	        _react2.default.createElement(
-	          'button',
-	          { onClick: boxSizeChanger },
-	          'bigger box'
-	        )
+	          commentsJSON: permaLinks,
+	          redditListRef: redditListRef
+	        })
 	      )
 	    );
 	  });
@@ -20131,6 +20126,7 @@
 	var CommentButton = function (_Component) {
 	  _inherits(CommentButton, _Component);
 
+	  //check what loading comments reloads on the site
 	  function CommentButton(props) {
 	    _classCallCheck(this, CommentButton);
 
@@ -20142,11 +20138,12 @@
 	    _this.currentRedditPost = _this.props.currentRedditPost.data;
 	    return _this;
 	  }
+	  //switch to refs or data or state?
+
 
 	  _createClass(CommentButton, [{
 	    key: 'buttonTextChg',
 	    value: function buttonTextChg() {
-	      console.log(this);
 	      if (document.getElementById(this.currentRedditPost.id + 'button').innerHTML === 'Comments') {
 	        document.getElementById(this.currentRedditPost.id + 'button').innerHTML = 'Close';
 	        this.loadRedditComments();
@@ -20154,6 +20151,7 @@
 	        document.getElementById(this.currentRedditPost.id + 'button').innerHTML = 'Comments';
 	        this.setState({ commentBody: '' });
 	      }
+	      this.buttonSizeChanger();
 	    }
 	  }, {
 	    key: 'loadRedditComments',
@@ -20164,11 +20162,49 @@
 	      xhr.onload = function (data) {
 	        if (xhr.readyState === 4) {
 	          var x = JSON.parse(xhr.responseText);
-	          _this2.setState({ commentBody: x[1].data.children[0].data.body });
+	          _this2.setState({ commentBody: _this2.createCommentsArray(x) });
 	        }
 	      };
 	      xhr.open("GET", this.props.commentsJSON + '.json');
 	      xhr.send();
+	    }
+	  }, {
+	    key: 'createCommentsArray',
+	    value: function createCommentsArray(redditCommentsJSON) {
+	      var newCommentsArray = [];
+	      if (redditCommentsJSON[0].data.children[0].data.selftext !== "") {
+	        newCommentsArray.push(_react2.default.createElement(
+	          'p',
+	          { key: this.currentRedditPost.id + "comments" },
+	          'OP: ',
+	          redditCommentsJSON[0].data.children[0].data.selftext
+	        ));
+	      }
+	      for (var x = 0; x < 5; x++) {
+	        if (redditCommentsJSON[1].data.children[x]) {
+	          newCommentsArray.push(_react2.default.createElement(
+	            'p',
+	            { key: this.currentRedditPost.id + "comments" + x },
+	            redditCommentsJSON[1].data.children[x].data.author,
+	            ': ',
+	            redditCommentsJSON[1].data.children[x].data.body
+	          ));
+	        }
+	      }
+	      return newCommentsArray;
+	    }
+	  }, {
+	    key: 'buttonSizeChanger',
+	    value: function buttonSizeChanger() {
+	      var redditItemref = this.props.redditListRef.refs[this.currentRedditPost.id];
+	      if (!redditItemref.originalHeight) {
+	        // redditItemref.originalHeight = redditItemref.style.height;
+	      }
+	      if (redditItemref.style.height === redditItemref.originalHeight) {
+	        // redditItemref.style.height = '700px';
+	      } else {
+	          // redditItemref.style.height = redditItemref.originalHeight;
+	        }
 	    }
 	  }, {
 	    key: 'render',
@@ -20192,7 +20228,7 @@
 	          'Comments'
 	        ),
 	        _react2.default.createElement(
-	          'p',
+	          'div',
 	          null,
 	          this.state.commentBody
 	        )
