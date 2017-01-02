@@ -55,12 +55,12 @@ class CommentButton extends Component {
   buttonSizeChanger () {
     const redditItemref = this.props.redditListRef.refs[this.currentRedditPost.id];
     if (!redditItemref.originalHeight) {
-      redditItemref.originalHeight = redditItemref.style.height;
+      // redditItemref.originalHeight = redditItemref.style.height;
     }
     if (redditItemref.style.height === redditItemref.originalHeight) {
-      redditItemref.style.height = '700px';
+      // redditItemref.style.height = '700px';
     } else {
-      redditItemref.style.height = redditItemref.originalHeight;
+      // redditItemref.style.height = redditItemref.originalHeight;
     }
   }
   render () {

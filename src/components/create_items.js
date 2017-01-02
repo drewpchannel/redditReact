@@ -27,7 +27,6 @@ const redditItemsList = (redditItems, redditListRef) => {
     }
     //might need better word wrapping
     let divSize = {
-      height: imageHeight + 6,
       width: 800
     }
     let linkSize = {
