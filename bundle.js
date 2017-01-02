@@ -86,6 +86,8 @@
 	//break up this file into components
 	//setting for slower internet 
 	//need to rename a lot of these components
+	//setup readme with links
+	//check subreds are loading as fast as main
 
 	var App = function (_Component) {
 	  _inherits(App, _Component);
@@ -97,11 +99,10 @@
 
 	    _this.state = {
 	      redditDL: {},
-	      subReddit: 'https://www.reddit.com/.json',
-	      userEmail: 'default',
-	      option: 0
+	      userEmail: 'default'
 	    };
-	    _this.saveSubRedditCount;
+	    _this.countPosts = 0;
+	    _this.subRedditURL = 'https://www.reddit.com/.json';
 	    _this.loadRedditArray();
 	    _this.redditDLArray = '';
 	    return _this;
@@ -118,6 +119,7 @@
 	          //correct way to do this?
 	          if (option === 'addPosts') {
 	            (function () {
+
 	              var x = JSON.parse(xhr.responseText);
 	              var combineRedditDl = _this2.redditDLArray;
 	              var makeRedditDlObject = _this2.state.redditDL;
@@ -132,9 +134,10 @@
 	            _this2.setState({
 	              redditDL: JSON.parse(xhr.responseText)
 	            });
-	            _this2.setState({ option: _this2.redditDLArray.length });
+	            _this2.countPosts = _this2.countPosts + _this2.redditDLArray.length;
 	            _this2.redditDLArray = _this2.state.redditDL.data.children;
 	          } else {
+
 	            _this2.setState({
 	              redditDL: JSON.parse(xhr.responseText)
 	            });
@@ -143,16 +146,16 @@
 	        }
 	      };
 	      if (option) {
-	        xhr.open("GET", this.saveSubRedditCount);
+	        xhr.open("GET", this.subRedditURL);
 	      } else {
-	        xhr.open("GET", this.state.subReddit);
+	        xhr.open("GET", this.subRedditURL);
 	      }
 	      xhr.send();
 	    }
 	  }, {
 	    key: 'setSubReddit',
 	    value: function setSubReddit(subReddit) {
-	      this.setState({ subReddit: 'https://www.reddit.com/r/' + subReddit + '/.json' });
+	      this.subRedditURL = 'https://www.reddit.com/r/' + subReddit + '/.json';
 	      this.loadRedditArray('newSub');
 	    }
 	    //this.subR? addposts string the best way?
@@ -160,7 +163,8 @@
 	  }, {
 	    key: 'loadAdditionalPosts',
 	    value: function loadAdditionalPosts() {
-	      this.saveSubRedditCount = this.state.subReddit + '?count=' + this.state.option + '&after=' + this.redditDLArray[this.redditDLArray.length - 1].data.name;
+	      this.countPosts = this.countPosts + 25;
+	      this.subRedditURL = this.subRedditURL + '?count=' + this.countPosts + '&after=' + this.redditDLArray[this.redditDLArray.length - 1].data.name;
 	      this.loadRedditArray('addPosts');
 	    }
 	  }, {
@@ -188,7 +192,8 @@
 	        _react2.default.createElement(_signin_buttons2.default, {
 	          findUserEmail: function findUserEmail(userEmail) {
 	            return _this3.setUserEmail(userEmail);
-	          }
+	          },
+	          userEmailState: this.state.userEmail
 	        }),
 	        _react2.default.createElement(_reddit_item2.default, {
 	          redditDL: this.state.redditDL,
@@ -19929,6 +19934,8 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	//really need to make variable names more clear
+
 	var RedditList = function (_Component) {
 	  _inherits(RedditList, _Component);
 
@@ -19967,7 +19974,7 @@
 	        );
 	      }
 	      var redditItems = this.props.redditDL.data.children;
-	      var redditList = (0, _create_items2.default)(redditItems);
+	      var redditList = (0, _create_items2.default)(redditItems, this);
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -20013,7 +20020,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var redditItemsList = function redditItemsList(redditItems) {
+	var redditItemsList = function redditItemsList(redditItems, redditListRef) {
 	  var redditItemsComplete = redditItems.map(function (elem) {
 	    var imageDefault = "http://images.clipartpanda.com/white-cloud-clipart-no-background-13270607091459405201simplecloud-bw.svg";
 	    var imageHeight = 300;
@@ -20047,12 +20054,19 @@
 	      display: "inline-block"
 	    };
 	    function boxSizeChanger() {
-	      document.getElementById(elem.data.id + 'div').style.height = '445px';
-	      document.getElementById(elem.data.id + 'div').style.height = imageHeight + 'px';
+	      var redditItemref = redditListRef.refs[elem.data.id];
+	      if (!redditItemref.originalHeight) {
+	        redditItemref.originalHeight = redditItemref.style.height;
+	      }
+	      if (redditItemref.style.height === redditItemref.originalHeight) {
+	        redditItemref.style.height = '700px';
+	      } else {
+	        redditItemref.style.height = redditItemref.originalHeight;
+	      }
 	    }
 	    return _react2.default.createElement(
 	      'div',
-	      { key: elem.data.id + "div", id: elem.data.id + "div", style: divSize, className: 'redditItemBox' },
+	      { key: elem.data.id + "div", id: elem.data.id + "div", style: divSize, className: 'redditItemBox', ref: elem.data.id },
 	      _react2.default.createElement('img', { key: elem.data.id + "img", src: imageDefault, style: imageStyle, className: 'redditItemImage' }),
 	      _react2.default.createElement(
 	        'div',
@@ -32691,22 +32705,19 @@
 	      var _this2 = this;
 
 	      //find a way to replace the setTimeout.  mayeb redo google login? https://developers.google.com/identity/sign-in/web/reference
-	      console.log(typeof gapi === 'undefined' ? 'undefined' : _typeof(gapi));
 	      if ((typeof gapi === 'undefined' ? 'undefined' : _typeof(gapi)) !== undefined) {
-	        if (_typeof(gapi.auth2) === "object") {
-	          (function () {
-	            var timeoutID = window.setTimeout(function () {
-	              if (timeoutID !== 2) {
-	                window.clearTimeout(timeoutID);
-	              } else {
-	                if (gapi.auth2.getAuthInstance().currentUser.Ab.w3 !== undefined) {
-	                  _this2.props.findUserEmail(gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3);
-	                  _this2.setState({ userEmail: gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3 });
-	                }
+	        (function () {
+	          var timeoutID = window.setTimeout(function () {
+	            if (timeoutID !== 2) {
+	              window.clearTimeout(timeoutID);
+	            } else {
+	              if (gapi.auth2.getAuthInstance().currentUser.Ab.w3 !== undefined) {
+	                _this2.props.findUserEmail(gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3);
+	                _this2.setState({ userEmail: gapi.auth2.getAuthInstance().currentUser.Ab.w3.U3 });
 	              }
-	            }, 500);
-	          })();
-	        }
+	            }
+	          }, 500);
+	        })();
 	      } else {
 	        console.log('gapi was not defined, reloading the page usually gets this item from google');
 	      }

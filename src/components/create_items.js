@@ -37,7 +37,6 @@ const redditItemsList = (redditItems, redditListRef) => {
     function boxSizeChanger (){
       const redditItemref = redditListRef.refs[elem.data.id];
       if (!redditItemref.originalHeight) {
-        console.log('detects and tries to set orig height')
         redditItemref.originalHeight = redditItemref.style.height;
       }
       if (redditItemref.style.height === redditItemref.originalHeight) {
