@@ -56,8 +56,8 @@ const redditItemsList = (redditItems, redditListRef) => {
             <CommentButton 
               currentRedditPost={elem} 
               commentsJSON={permaLinks} 
+              redditListRef={redditListRef}
             />
-            <button onClick={boxSizeChanger}>bigger box</button>
           </div>
       </div>
     );
