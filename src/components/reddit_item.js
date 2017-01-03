@@ -16,7 +16,7 @@ class RedditList extends Component {
   }
   countScrolls () {
     this.scrolls++;
-    if (this.scrolls % 6 === 0) {
+    if (this.scrolls % 7 === 0) {
       this.props.loadMorePosts();
     }
   }

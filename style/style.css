@@ -23,3 +23,9 @@
 .datePosts {
   font-size: 10px;
 }
+.container {
+  margin-left: 0px ! important;
+}
+.datePosts {
+  margin-bottom: 0px;
+}

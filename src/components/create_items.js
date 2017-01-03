@@ -31,6 +31,7 @@ const redditItemsList = (redditItems, redditListRef) => {
     }
     let linkSize = {
       width: 794 - imageWidth,
+      marginLeft: 5,
       display: "inline-block"
     }
     let date = new Date(elem.data.created).toString();
