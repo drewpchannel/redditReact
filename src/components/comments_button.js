@@ -20,7 +20,6 @@ class CommentButton extends Component {
       document.getElementById(this.currentRedditPost.id + 'button').innerHTML = 'Comments';
       this.setState({commentBody: ''});
     }
-    this.buttonSizeChanger();
   }
   loadRedditComments () {
     const xhr = new XMLHttpRequest();
@@ -52,17 +51,6 @@ class CommentButton extends Component {
       }
     }
     return newCommentsArray;
-  }
-  buttonSizeChanger () {
-    const redditItemref = this.props.redditListRef.refs[this.currentRedditPost.id];
-    if (!redditItemref.originalHeight) {
-      // redditItemref.originalHeight = redditItemref.style.height;
-    }
-    if (redditItemref.style.height === redditItemref.originalHeight) {
-      // redditItemref.style.height = '700px';
-    } else {
-      // redditItemref.style.height = redditItemref.originalHeight;
-    }
   }
   render () {
     //style={buttonStyle} id={this.props.data.id + "button"} onClick={bTextChg.bind(this.props)}

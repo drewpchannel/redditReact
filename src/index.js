@@ -41,6 +41,7 @@ class App extends Component {
             )
           this.setState({redditDL: makeRedditDlObject})
         } else if (option === 'newSub') {
+          console.log(JSON.parse(xhr.responseText))
           this.setState({
             redditDL: JSON.parse(xhr.responseText)
           })

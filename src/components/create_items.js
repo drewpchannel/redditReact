@@ -33,17 +33,7 @@ const redditItemsList = (redditItems, redditListRef) => {
       width: 794 - imageWidth,
       display: "inline-block"
     }
-    function boxSizeChanger (){
-      const redditItemref = redditListRef.refs[elem.data.id];
-      if (!redditItemref.originalHeight) {
-        redditItemref.originalHeight = redditItemref.style.height;
-      }
-      if (redditItemref.style.height === redditItemref.originalHeight) {
-        redditItemref.style.height = '700px';
-      } else {
-        redditItemref.style.height = redditItemref.originalHeight;
-      }
-    }
+    let date = new Date(elem.data.created).toString();
     return (
       <div key={elem.data.id + "div"} id={elem.data.id + "div"} style={divSize} className="redditItemBox" ref={elem.data.id} >
           <img key={elem.data.id + "img"} src={imageDefault} style={imageStyle} className="redditItemImage" />
@@ -52,6 +42,7 @@ const redditItemsList = (redditItems, redditListRef) => {
             <br />
             <a href={`https://www.reddit.com/user/${elem.data.author}`}>By: {elem.data.author}</a>
             <br />
+            <p className="datePosts">{date}</p>
             <CommentButton 
               currentRedditPost={elem} 
               commentsJSON={permaLinks} 
