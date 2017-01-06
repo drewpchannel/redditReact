@@ -41,7 +41,7 @@ const redditItemsList = (redditItems, redditListRef) => {
           <div style={linkSize}>
             <a key={elem.data.id} href={permaLinks}>{elem.data.title}</a>
             <br />
-            <a href={`https://www.reddit.com/user/${elem.data.author}`}>By: {elem.data.author}</a>
+            <a href={`https://www.reddit.com/user/${elem.data.author}`} className='authorLink'>By: {elem.data.author}</a>
             <br />
             <p className="datePosts">{date}</p>
             <CommentButton 
