@@ -36,9 +36,14 @@ class CommentButton extends Component {
     let newCommentsArray = [];
     if (redditCommentsJSON[0].data.children[0].data.selftext !== "") {
       newCommentsArray.push(
-          <p key={this.currentRedditPost.id + "comments"} className="redditComments">
-            OP: {redditCommentsJSON[0].data.children[0].data.selftext}
-          </p>
+          <span key={this.currentRedditPost.id + "comments" + x}>
+            <p className='authorComment'>
+            {redditCommentsJSON[0].data.children[0].data.author}:
+            </p>
+            <p className='authorCommentBody'>
+              {redditCommentsJSON[0].data.children[0].data.body}
+            </p>
+          </span>
       );
     }
     for (var x = 0; x < 5; x++) {
