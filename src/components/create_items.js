@@ -40,7 +40,7 @@ const redditItemsList = (redditItems, redditListRef) => {
           <div style={linkSize}>
             <a key={elem.data.id} href={`https://www.reddit.com${elem.data.permalink}`} className="redditLinkText">{elem.data.title}</a>
             <br />
-            <a href={`https://www.reddit.com/user/${elem.data.author}`} className="redditLinkAuthor">By: {elem.data.author}</a>
+            <a href={`https://www.reddit.com/user/${elem.data.author}`} className='authorLink'>By: {elem.data.author}</a>
             <br />
             <a href={`https://www.reddit.com/r/${elem.data.subreddit}`} className="subRedditLinks">/r/{elem.data.subreddit}</a>
             <p className="datePosts">{date}</p>

@@ -1,3 +1,4 @@
+/*needs to be organized by least to more specific*/
 .g-signin2 {
   display: inline-flex;
   line-height: 50px;
@@ -15,17 +16,19 @@
 }
 
 .redditItemBox {
-  border: solid grey 3px;
-  margin: 3px;
+  border: solid #525963 3px;
+  margin: 9px;
   display: flex;
   justify-content: flex-start;
+  background-color: #f7edd7;
+  box-shadow: 8px 5px 9px #37383d;
 }
 .datePosts {
   font-size: 10px;
   margin-bottom: 0px;
 }
 .container {
-  margin-left: 0px ! important;
+  /*margin-left: 0px ! important;*/
 }
 .redditComments {
   font-size: 14px;
@@ -33,4 +36,30 @@
 .subRedditLinks {
   color: grey;
   font-size: 12px;
+}
+.datePosts {
+  margin-bottom: 0px;
+}
+a {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 15px;
+}
+.authorLink {
+  font-size: 14px;
+  font-weight: bold;
+  color: #4a3963;
+}
+.authorComment {
+  margin-bottom: 1px;
+  color: #6382a8;
+  font-weight: 300;
+}
+.authorCommentBody {
+  margin-left: 11px;
+  line-height: 18px;
+}
+body {
+  background-color: #868c71 ! important;
 }

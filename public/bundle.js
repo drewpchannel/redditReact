@@ -131,6 +131,7 @@
 	              _this2.setState({ redditDL: makeRedditDlObject });
 	            })();
 	          } else if (option === 'newSub') {
+	            console.log(JSON.parse(xhr.responseText));
 	            _this2.setState({
 	              redditDL: JSON.parse(xhr.responseText)
 	            });
@@ -19959,7 +19960,7 @@
 	    key: 'countScrolls',
 	    value: function countScrolls() {
 	      this.scrolls++;
-	      if (this.scrolls % 6 === 0) {
+	      if (this.scrolls % 7 === 0) {
 	        this.props.loadMorePosts();
 	      }
 	    }
@@ -20050,19 +20051,10 @@
 	    };
 	    var linkSize = {
 	      width: 794 - imageWidth,
+	      marginLeft: 5,
 	      display: "inline-block"
 	    };
-	    function boxSizeChanger() {
-	      var redditItemref = redditListRef.refs[elem.data.id];
-	      if (!redditItemref.originalHeight) {
-	        redditItemref.originalHeight = redditItemref.style.height;
-	      }
-	      if (redditItemref.style.height === redditItemref.originalHeight) {
-	        redditItemref.style.height = '700px';
-	      } else {
-	        redditItemref.style.height = redditItemref.originalHeight;
-	      }
-	    }
+	    var date = new Date(elem.data.created).toString();
 	    return _react2.default.createElement(
 	      'div',
 	      { key: elem.data.id + "div", id: elem.data.id + "div", style: divSize, className: 'redditItemBox', ref: elem.data.id },
@@ -20078,11 +20070,16 @@
 	        _react2.default.createElement('br', null),
 	        _react2.default.createElement(
 	          'a',
-	          { href: 'https://www.reddit.com/user/' + elem.data.author },
+	          { href: 'https://www.reddit.com/user/' + elem.data.author, className: 'authorLink' },
 	          'By: ',
 	          elem.data.author
 	        ),
 	        _react2.default.createElement('br', null),
+	        _react2.default.createElement(
+	          'p',
+	          { className: 'datePosts' },
+	          date
+	        ),
 	        _react2.default.createElement(_comments_button2.default, {
 	          currentRedditPost: elem,
 	          commentsJSON: permaLinks,
@@ -20139,6 +20136,7 @@
 	    return _this;
 	  }
 	  //switch to refs or data or state?
+	  //not a huge fan of the callback setup in this file
 
 
 	  _createClass(CommentButton, [{
@@ -20151,7 +20149,6 @@
 	        document.getElementById(this.currentRedditPost.id + 'button').innerHTML = 'Comments';
 	        this.setState({ commentBody: '' });
 	      }
-	      this.buttonSizeChanger();
 	    }
 	  }, {
 	    key: 'loadRedditComments',
@@ -20183,28 +20180,23 @@
 	      for (var x = 0; x < 5; x++) {
 	        if (redditCommentsJSON[1].data.children[x]) {
 	          newCommentsArray.push(_react2.default.createElement(
-	            'p',
+	            'span',
 	            { key: this.currentRedditPost.id + "comments" + x },
-	            redditCommentsJSON[1].data.children[x].data.author,
-	            ': ',
-	            redditCommentsJSON[1].data.children[x].data.body
+	            _react2.default.createElement(
+	              'p',
+	              { className: 'authorComment' },
+	              redditCommentsJSON[1].data.children[x].data.author,
+	              ':'
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              { className: 'authorCommentBody' },
+	              redditCommentsJSON[1].data.children[x].data.body
+	            )
 	          ));
 	        }
 	      }
 	      return newCommentsArray;
-	    }
-	  }, {
-	    key: 'buttonSizeChanger',
-	    value: function buttonSizeChanger() {
-	      var redditItemref = this.props.redditListRef.refs[this.currentRedditPost.id];
-	      if (!redditItemref.originalHeight) {
-	        // redditItemref.originalHeight = redditItemref.style.height;
-	      }
-	      if (redditItemref.style.height === redditItemref.originalHeight) {
-	        // redditItemref.style.height = '700px';
-	      } else {
-	          // redditItemref.style.height = redditItemref.originalHeight;
-	        }
 	    }
 	  }, {
 	    key: 'render',
