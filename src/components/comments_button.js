@@ -25,12 +25,41 @@ class CommentButton extends Component {
     const xhr = new XMLHttpRequest();
     xhr.onload = (data) => {
       if (xhr.readyState === 4) {
-        const x = JSON.parse(xhr.responseText);
-        this.setState({commentBody: this.createCommentsArray(x)});
+        const redditCommentsJSON = JSON.parse(xhr.responseText);
+        this.setState({commentBody: this.createCommentsArray(redditCommentsJSON)});
       }
     }
     xhr.open("GET", `${this.props.commentsJSON}.json`);
     xhr.send();
+  }
+  findCommentLinks (commentText) {
+    const regexSearch = /(\bhttp|(http))\w+/gi;
+    let linkTextFound = regexSearch.exec(commentText)
+    let newLink =[];
+    let currentLetter = 0;
+    let commentWithLinks = '';
+    let originalLetter = 0;
+    //if for links first thing in post or only
+    const findWholeURL = () => {
+      let endOfText = currentLetter;
+      while ((commentText.charAt(currentLetter) !== '') && (commentText.charAt(currentLetter) !== ' ')) {
+        newLink.push(commentText.charAt(currentLetter))
+        currentLetter = currentLetter + 1;
+      }
+      newLink = newLink.join('');
+      console.log(newLink)
+      let newLinkJSX = <a href={newLink}>Link</a>;
+      commentWithLinks = <p className='authorCommentBody'>{commentText.substring(originalLetter, endOfText)}<a href={newLink}>Link</a>{commentText.substring((currentLetter + newLink.length), commentText.length)}</p>
+    }
+    // while ()
+    if(linkTextFound) {
+      currentLetter = linkTextFound.index;
+      findWholeURL();
+    } else {
+      return <p className='authorCommentBody'>{commentText}</p>;
+    }
+    //add on hover to tell url?
+    return commentWithLinks;
   }
   createCommentsArray (redditCommentsJSON) {
     let newCommentsArray = [];
@@ -41,7 +70,7 @@ class CommentButton extends Component {
             {redditCommentsJSON[0].data.children[0].data.author}:
             </p>
             <p className='authorCommentBody'>
-              {redditCommentsJSON[0].data.children[0].data.body}
+              {redditCommentsJSON[0].data.children[0].data.selftext}
             </p>
           </span>
       );
@@ -53,9 +82,7 @@ class CommentButton extends Component {
             <p className='authorComment'>
             {redditCommentsJSON[1].data.children[x].data.author}:
             </p>
-            <p className='authorCommentBody'>
-              {redditCommentsJSON[1].data.children[x].data.body}
-            </p>
+            {this.findCommentLinks(redditCommentsJSON[1].data.children[x].data.body)}
           </span>
         );
       }
