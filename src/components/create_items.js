@@ -6,7 +6,6 @@ const redditItemsList = (redditItems, redditListRef) => {
     let imageDefault = "http://images.clipartpanda.com/white-cloud-clipart-no-background-13270607091459405201simplecloud-bw.svg";
     let imageHeight = 300;
     let imageWidth = 300;
-    let permaLinks = `https://www.reddit.com${elem.data.permalink}`;
     const scaleImageHeight = (height, width) => {
       let newWidth = width/height * 300;
       return newWidth;
@@ -39,14 +38,15 @@ const redditItemsList = (redditItems, redditListRef) => {
       <div key={elem.data.id + "div"} id={elem.data.id + "div"} style={divSize} className="redditItemBox" ref={elem.data.id} >
           <img key={elem.data.id + "img"} src={imageDefault} style={imageStyle} className="redditItemImage" />
           <div style={linkSize}>
-            <a key={elem.data.id} href={permaLinks}>{elem.data.title}</a>
+            <a key={elem.data.id} href={`https://www.reddit.com${elem.data.permalink}`} className="redditLinkText">{elem.data.title}</a>
             <br />
-            <a href={`https://www.reddit.com/user/${elem.data.author}`}>By: {elem.data.author}</a>
+            <a href={`https://www.reddit.com/user/${elem.data.author}`} className="redditLinkAuthor">By: {elem.data.author}</a>
             <br />
+            <a href={`https://www.reddit.com/r/${elem.data.subreddit}`} className="subRedditLinks">/r/{elem.data.subreddit}</a>
             <p className="datePosts">{date}</p>
             <CommentButton 
               currentRedditPost={elem} 
-              commentsJSON={permaLinks} 
+              commentsJSON={`https://www.reddit.com${elem.data.permalink}`} 
               redditListRef={redditListRef}
             />
           </div>

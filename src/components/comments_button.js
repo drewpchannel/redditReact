@@ -36,7 +36,7 @@ class CommentButton extends Component {
     let newCommentsArray = [];
     if (redditCommentsJSON[0].data.children[0].data.selftext !== "") {
       newCommentsArray.push(
-          <p key={this.currentRedditPost.id + "comments"}>
+          <p key={this.currentRedditPost.id + "comments"} className="redditComments">
             OP: {redditCommentsJSON[0].data.children[0].data.selftext}
           </p>
       );
@@ -44,7 +44,7 @@ class CommentButton extends Component {
     for (var x = 0; x < 5; x++) {
       if (redditCommentsJSON[1].data.children[x]){
         newCommentsArray.push(
-            <p key={this.currentRedditPost.id + "comments" + x}>
+            <p key={this.currentRedditPost.id + "comments" + x} className="redditComments">
               {redditCommentsJSON[1].data.children[x].data.author}: {redditCommentsJSON[1].data.children[x].data.body}
             </p>
         );

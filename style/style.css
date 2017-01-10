@@ -22,10 +22,15 @@
 }
 .datePosts {
   font-size: 10px;
+  margin-bottom: 0px;
 }
 .container {
   margin-left: 0px ! important;
 }
-.datePosts {
-  margin-bottom: 0px;
+.redditComments {
+  font-size: 14px;
+}
+.subRedditLinks {
+  color: grey;
+  font-size: 12px;
 }
