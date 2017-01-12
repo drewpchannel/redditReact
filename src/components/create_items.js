@@ -14,31 +14,25 @@ const redditItemsList = (redditItems, redditListRef) => {
       const redditPost = elem.data.preview.images[0]
       if (redditPost.variants.gif) { 
         imageDefault = redditPost.variants.gif.source.url;
-        imageHeight = scaleImageHeight(redditPost.variants.gif.source.width, redditPost.variants.gif.source.height);
+        // imageHeight = scaleImageHeight(redditPost.variants.gif.source.width, redditPost.variants.gif.source.height);
       } else {
         imageDefault = redditPost.source.url;
-        imageHeight = scaleImageHeight(redditPost.source.width, redditPost.source.height);
+        // imageHeight = scaleImageHeight(redditPost.source.width, redditPost.source.height);
       }
     }
-    let imageStyle = {
+/*    let imageStyle = {
       height: imageHeight,
       width: imageWidth,
-    }
+    }*/
     //might need better word wrapping
     let divSize = {
       width: 800
     }
-    let linkSize = {
-      width: 794 - imageWidth,
-      marginLeft: 5,
-      marginRight: 10,
-      display: "inline-block"
-    }
     let date = new Date(elem.data.created).toString();
     return (
       <div key={elem.data.id + "div"} id={elem.data.id + "div"} style={divSize} className="redditItemBox" ref={elem.data.id} >
-          <img key={elem.data.id + "img"} src={imageDefault} style={imageStyle} className="redditItemImage" />
-          <div style={linkSize}>
+          <img key={elem.data.id + "img"} src={imageDefault} className="redditItemImage" />
+          <div className="RedditPostDivs">
             <a key={elem.data.id} href={`https://www.reddit.com${elem.data.permalink}`} className="redditLinkText">{elem.data.title}</a>
             <br />
             <a href={`https://www.reddit.com/user/${elem.data.author}`} className='authorLink'>By: {elem.data.author}</a>

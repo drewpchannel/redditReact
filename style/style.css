@@ -14,7 +14,11 @@
   width: 100%;
   margin-bottom: 30px;
 }
-
+.RedditPostDivs {
+  margin-left: 5px;
+  margin-right: 10px;
+  display: inline-block;
+}
 .redditItemBox {
   border: solid #525963 3px;
   margin: 9px;
@@ -23,12 +27,16 @@
   background-color: #f7edd7;
   box-shadow: 8px 5px 9px #37383d;
 }
+.redditItemImage {
+  width: 28%;
+  height: 50%;
+}
 .datePosts {
   font-size: 10px;
   margin-bottom: 0px;
 }
 .container {
-  /*margin-left: 0px ! important;*/
+  margin-left: 5% ! important;
 }
 .redditComments {
   font-size: 14px;
