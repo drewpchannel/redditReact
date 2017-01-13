@@ -21,7 +21,6 @@ class App extends Component {
     xhr.onload = (data) => {
       if (xhr.readyState === 4) {
         if(option === 'addPosts') {
-
           const x = JSON.parse(xhr.responseText);
           let combineRedditDl = this.redditDLArray;
           let makeRedditDlObject = this.state.redditDL;
