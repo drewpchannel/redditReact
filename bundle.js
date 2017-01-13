@@ -83,12 +83,6 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	//break up this file into components
-	//setting for slower internet 
-	//need to rename a lot of these components
-	//setup readme with links
-	//check subreds are loading as fast as main
-
 	var App = function (_Component) {
 	  _inherits(App, _Component);
 
@@ -116,10 +110,8 @@
 	      var xhr = new XMLHttpRequest();
 	      xhr.onload = function (data) {
 	        if (xhr.readyState === 4) {
-	          //correct way to do this?
 	          if (option === 'addPosts') {
 	            (function () {
-
 	              var x = JSON.parse(xhr.responseText);
 	              var combineRedditDl = _this2.redditDLArray;
 	              var makeRedditDlObject = _this2.state.redditDL;
@@ -158,8 +150,6 @@
 	      this.subRedditURL = 'https://www.reddit.com/r/' + subReddit + '/.json';
 	      this.loadRedditArray('newSub');
 	    }
-	    //this.subR? addposts string the best way?
-
 	  }, {
 	    key: 'loadAdditionalPosts',
 	    value: function loadAdditionalPosts() {
@@ -183,9 +173,8 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_search_bar2.default
-	        //need update subreddit state 
-	        , { updateSubReddit: function updateSubReddit(subReddit) {
+	        _react2.default.createElement(_search_bar2.default, {
+	          updateSubReddit: function updateSubReddit(subReddit) {
 	            return setSubReddit(subReddit);
 	          }
 	        }),
@@ -20169,11 +20158,7 @@
 	            redditCommentsJSON[0].data.children[0].data.author,
 	            ':'
 	          ),
-	          _react2.default.createElement(
-	            'p',
-	            { className: 'authorCommentBody' },
-	            (0, _parseLinks2.default)(redditCommentsJSON[0].data.children[0].data.selftext, this.currentRedditPost.id + "commentsInd")
-	          )
+	          (0, _parseLinks2.default)(redditCommentsJSON[0].data.children[0].data.selftext, this.currentRedditPost.id + "commentsInd")
 	        ));
 	      }
 	      for (var x = 0; x < 5; x++) {
@@ -20260,7 +20245,6 @@
 	      }
 	      if (currentComment[x].indexOf(')') === -1) {
 	        linkURL = currentComment[x].substring(currentComment[x].indexOf('htt'), currentComment[x].length);
-	        console.log(currentComment[x]);
 	      } else {
 	        linkURL = currentComment[x].substring(currentComment[x].indexOf('htt'), currentComment[x].indexOf(')'));
 	      }
