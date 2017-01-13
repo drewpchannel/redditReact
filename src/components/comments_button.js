@@ -3,8 +3,6 @@ import ReactDom from 'react-dom';
 import parseLinks from '../functions/parseLinks';
 
 class CommentButton extends Component {
-  //check what loading comments reloads on the site
-  //do i need state commentbody?
   constructor (props) {
     super (props);
     this.state = {
@@ -12,8 +10,6 @@ class CommentButton extends Component {
     }
     this.currentRedditPost = this.props.currentRedditPost.data;
   }
-  //switch to refs or data or state?
-  //not a huge fan of the callback setup in this file
   buttonTextChg (){
     if (document.getElementById(this.currentRedditPost.id + 'button').innerHTML === 'Comments') {
       document.getElementById(this.currentRedditPost.id + 'button').innerHTML = 'Close';
@@ -63,16 +59,12 @@ class CommentButton extends Component {
     return newCommentsArray;
   }
   render () {
-    //style={buttonStyle} id={this.props.data.id + "button"} onClick={bTextChg.bind(this.props)}
     let buttonStyle = {
       width: 80,
       height: 10,
       fontSize: 10,
       lineHeight: 0
     }
-    //add author text somewhere
-    //need to adjust for additional pages
-    //make comment body an unsorted or sorted list?
     return (
       <div>
         <button style={buttonStyle} id={this.currentRedditPost.id + "button"} onClick={this.buttonTextChg.bind(this)}>Comments</button>

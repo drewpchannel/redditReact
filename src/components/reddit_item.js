@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import jsStyle from './jsStyles/jsStyle'; 
 import redditItemsList from './create_items';
 
-//really need to make variable names more clear
-
 class RedditList extends Component {
   constructor (props) {
     super(props);

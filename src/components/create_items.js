@@ -14,10 +14,8 @@ const redditItemsList = (redditItems, redditListRef) => {
       const redditPost = elem.data.preview.images[0]
       if (redditPost.variants.gif) { 
         imageDefault = redditPost.variants.gif.source.url;
-        // imageHeight = scaleImageHeight(redditPost.variants.gif.source.width, redditPost.variants.gif.source.height);
       } else {
         imageDefault = redditPost.source.url;
-        // imageHeight = scaleImageHeight(redditPost.source.width, redditPost.source.height);
       }
     }
     let divSize = {
