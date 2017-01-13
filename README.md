@@ -4,10 +4,6 @@
 
 Hosted at quickread.space, This app was created to enable users to view reddit with less clutter and a faster one page experience.  Also visual elements like pictures and comments can be browsed from the main page.
 
-## Motivation
-
-A short description of the motivation behind the creation and maintenance of the project. This should explain **why** the project exists.
-
 ## Installation
 
 Just download the file, unzip it to a directory and npm install (with npm packet manager installed).  After this has finished, enter nodejs expressHost.js.
