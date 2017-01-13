@@ -4,12 +4,6 @@ import RedditList from './components/reddit_item';
 import SearchBar from './components/search_bar';
 import SignIn from './components/signin_buttons';
 
-//break up this file into components
-//setting for slower internet 
-//need to rename a lot of these components
-//setup readme with links
-//check subreds are loading as fast as main
-
 class App extends Component {
   constructor (props) {
     super(props);
@@ -26,7 +20,6 @@ class App extends Component {
     const xhr = new XMLHttpRequest();
     xhr.onload = (data) => {
       if (xhr.readyState === 4) {
-        //correct way to do this?
         if(option === 'addPosts') {
 
           const x = JSON.parse(xhr.responseText);
@@ -66,7 +59,6 @@ class App extends Component {
     this.subRedditURL = `https://www.reddit.com/r/${subReddit}/.json`;
     this.loadRedditArray ('newSub');
   }
-  //this.subR? addposts string the best way?
   loadAdditionalPosts () {
     this.countPosts = this.countPosts + 25;
     this.subRedditURL = `${this.subRedditURL}?count=${this.countPosts}&after=${this.redditDLArray[this.redditDLArray.length - 1].data.name}`;
@@ -80,7 +72,6 @@ class App extends Component {
     return (
       <div>
         <SearchBar 
-        //need update subreddit state 
           updateSubReddit = {subReddit => setSubReddit(subReddit)}
         />
         <SignIn 

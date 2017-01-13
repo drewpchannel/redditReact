@@ -15,7 +15,6 @@ function parseLinks (comment, id) {
       }
       if (currentComment[x].indexOf(')') === -1) {
         linkURL = currentComment[x].substring(currentComment[x].indexOf('htt'), currentComment[x].length)
-        console.log(currentComment[x])
       } else {
         linkURL = currentComment[x].substring(currentComment[x].indexOf('htt'), currentComment[x].indexOf(')'))
       }
