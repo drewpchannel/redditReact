@@ -3,18 +3,26 @@ function parseLinks (comment, id) {
 	if (comment.indexOf('htt') === -1) {
     return <p className="authorCommentBody">{comment}</p>
   }
-	let currentComment = comment.split(' ');
+  const re = /\s\n|\s/g;
+	let currentComment = comment.split(re);
   for (let x = 0; x < currentComment.length; x++) {
     let linkURL;
     let linkText = 'Link';
-      console.log(currentComment[x])
     if (currentComment[x].indexOf('htt') !== -1) {
       if (currentComment[x].indexOf(']') !== -1) {
         let g = currentComment[x].substring(0, currentComment[x].indexOf(']')) + "] ";
         currentComment[x - 1] = currentComment[x - 1] + " " + g;
       }
-      linkURL = currentComment[x].substring(currentComment[x].indexOf('htt') + 1, currentComment[x].indexOf(')'))
+      if (currentComment[x].indexOf(')') === -1) {
+        linkURL = currentComment[x].substring(currentComment[x].indexOf('htt'), currentComment[x].length)
+        console.log(currentComment[x])
+      } else {
+        linkURL = currentComment[x].substring(currentComment[x].indexOf('htt'), currentComment[x].indexOf(')'))
+      }
+      // console.log(currentComment[x].substring(currentComment[x].indexOf('htt') + 1, currentComment[x].indexOf(')')))
       currentComment[x] = <a href={linkURL} key={id + x}>Link </a>;
+      // console.log(currentComment[x])
+      // currentComment[x].props.href = linkURL;
     } else {
       currentComment[x] = `${currentComment[x]} `
     }

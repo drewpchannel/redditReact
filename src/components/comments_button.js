@@ -43,7 +43,7 @@ class CommentButton extends Component {
             {redditCommentsJSON[0].data.children[0].data.author}:
             </p>
             <p className='authorCommentBody'>
-              {redditCommentsJSON[0].data.children[0].data.selftext}
+              {parseLinks(redditCommentsJSON[0].data.children[0].data.selftext, this.currentRedditPost.id + "commentsInd")}
             </p>
           </span>
       );

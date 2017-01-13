@@ -20,11 +20,6 @@ const redditItemsList = (redditItems, redditListRef) => {
         // imageHeight = scaleImageHeight(redditPost.source.width, redditPost.source.height);
       }
     }
-/*    let imageStyle = {
-      height: imageHeight,
-      width: imageWidth,
-    }*/
-    //might need better word wrapping
     let divSize = {
       width: 800
     }
