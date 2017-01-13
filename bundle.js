@@ -67,11 +67,11 @@
 
 	var _reddit_item2 = _interopRequireDefault(_reddit_item);
 
-	var _search_bar = __webpack_require__(164);
+	var _search_bar = __webpack_require__(165);
 
 	var _search_bar2 = _interopRequireDefault(_search_bar);
 
-	var _signin_buttons = __webpack_require__(167);
+	var _signin_buttons = __webpack_require__(168);
 
 	var _signin_buttons2 = _interopRequireDefault(_signin_buttons);
 
@@ -131,7 +131,6 @@
 	              _this2.setState({ redditDL: makeRedditDlObject });
 	            })();
 	          } else if (option === 'newSub') {
-	            console.log(JSON.parse(xhr.responseText));
 	            _this2.setState({
 	              redditDL: JSON.parse(xhr.responseText)
 	            });
@@ -19935,8 +19934,6 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	//really need to make variable names more clear
-
 	var RedditList = function (_Component) {
 	  _inherits(RedditList, _Component);
 
@@ -20026,7 +20023,6 @@
 	    var imageDefault = "http://images.clipartpanda.com/white-cloud-clipart-no-background-13270607091459405201simplecloud-bw.svg";
 	    var imageHeight = 300;
 	    var imageWidth = 300;
-	    var permaLinks = 'https://www.reddit.com' + elem.data.permalink;
 	    var scaleImageHeight = function scaleImageHeight(height, width) {
 	      var newWidth = width / height * 300;
 	      return newWidth;
@@ -20035,36 +20031,24 @@
 	      var redditPost = elem.data.preview.images[0];
 	      if (redditPost.variants.gif) {
 	        imageDefault = redditPost.variants.gif.source.url;
-	        imageHeight = scaleImageHeight(redditPost.variants.gif.source.width, redditPost.variants.gif.source.height);
 	      } else {
 	        imageDefault = redditPost.source.url;
-	        imageHeight = scaleImageHeight(redditPost.source.width, redditPost.source.height);
 	      }
 	    }
-	    var imageStyle = {
-	      height: imageHeight,
-	      width: imageWidth
-	    };
-	    //might need better word wrapping
 	    var divSize = {
 	      width: 800
-	    };
-	    var linkSize = {
-	      width: 794 - imageWidth,
-	      marginLeft: 5,
-	      display: "inline-block"
 	    };
 	    var date = new Date(elem.data.created).toString();
 	    return _react2.default.createElement(
 	      'div',
 	      { key: elem.data.id + "div", id: elem.data.id + "div", style: divSize, className: 'redditItemBox', ref: elem.data.id },
-	      _react2.default.createElement('img', { key: elem.data.id + "img", src: imageDefault, style: imageStyle, className: 'redditItemImage' }),
+	      _react2.default.createElement('img', { key: elem.data.id + "img", src: imageDefault, className: 'redditItemImage' }),
 	      _react2.default.createElement(
 	        'div',
-	        { style: linkSize },
+	        { className: 'RedditPostDivs' },
 	        _react2.default.createElement(
 	          'a',
-	          { key: elem.data.id, href: permaLinks },
+	          { key: elem.data.id, href: 'https://www.reddit.com' + elem.data.permalink, className: 'redditLinkText' },
 	          elem.data.title
 	        ),
 	        _react2.default.createElement('br', null),
@@ -20076,13 +20060,19 @@
 	        ),
 	        _react2.default.createElement('br', null),
 	        _react2.default.createElement(
+	          'a',
+	          { href: 'https://www.reddit.com/r/' + elem.data.subreddit, className: 'subRedditLinks' },
+	          '/r/',
+	          elem.data.subreddit
+	        ),
+	        _react2.default.createElement(
 	          'p',
 	          { className: 'datePosts' },
 	          date
 	        ),
 	        _react2.default.createElement(_comments_button2.default, {
 	          currentRedditPost: elem,
-	          commentsJSON: permaLinks,
+	          commentsJSON: 'https://www.reddit.com' + elem.data.permalink,
 	          redditListRef: redditListRef
 	        })
 	      )
@@ -20112,6 +20102,10 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
+	var _parseLinks = __webpack_require__(164);
+
+	var _parseLinks2 = _interopRequireDefault(_parseLinks);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -20123,7 +20117,6 @@
 	var CommentButton = function (_Component) {
 	  _inherits(CommentButton, _Component);
 
-	  //check what loading comments reloads on the site
 	  function CommentButton(props) {
 	    _classCallCheck(this, CommentButton);
 
@@ -20135,9 +20128,6 @@
 	    _this.currentRedditPost = _this.props.currentRedditPost.data;
 	    return _this;
 	  }
-	  //switch to refs or data or state?
-	  //not a huge fan of the callback setup in this file
-
 
 	  _createClass(CommentButton, [{
 	    key: 'buttonTextChg',
@@ -20158,8 +20148,8 @@
 	      var xhr = new XMLHttpRequest();
 	      xhr.onload = function (data) {
 	        if (xhr.readyState === 4) {
-	          var x = JSON.parse(xhr.responseText);
-	          _this2.setState({ commentBody: _this2.createCommentsArray(x) });
+	          var redditCommentsJSON = JSON.parse(xhr.responseText);
+	          _this2.setState({ commentBody: _this2.createCommentsArray(redditCommentsJSON) });
 	        }
 	      };
 	      xhr.open("GET", this.props.commentsJSON + '.json');
@@ -20171,10 +20161,19 @@
 	      var newCommentsArray = [];
 	      if (redditCommentsJSON[0].data.children[0].data.selftext !== "") {
 	        newCommentsArray.push(_react2.default.createElement(
-	          'p',
-	          { key: this.currentRedditPost.id + "comments" },
-	          'OP: ',
-	          redditCommentsJSON[0].data.children[0].data.selftext
+	          'span',
+	          { key: this.currentRedditPost.id + "comments" + x },
+	          _react2.default.createElement(
+	            'p',
+	            { className: 'authorComment' },
+	            redditCommentsJSON[0].data.children[0].data.author,
+	            ':'
+	          ),
+	          _react2.default.createElement(
+	            'p',
+	            { className: 'authorCommentBody' },
+	            (0, _parseLinks2.default)(redditCommentsJSON[0].data.children[0].data.selftext, this.currentRedditPost.id + "commentsInd")
+	          )
 	        ));
 	      }
 	      for (var x = 0; x < 5; x++) {
@@ -20188,11 +20187,7 @@
 	              redditCommentsJSON[1].data.children[x].data.author,
 	              ':'
 	            ),
-	            _react2.default.createElement(
-	              'p',
-	              { className: 'authorCommentBody' },
-	              redditCommentsJSON[1].data.children[x].data.body
-	            )
+	            (0, _parseLinks2.default)(redditCommentsJSON[1].data.children[x].data.body, this.currentRedditPost.id + "commentsInd")
 	          ));
 	        }
 	      }
@@ -20201,16 +20196,12 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      //style={buttonStyle} id={this.props.data.id + "button"} onClick={bTextChg.bind(this.props)}
 	      var buttonStyle = {
 	        width: 80,
 	        height: 10,
 	        fontSize: 10,
 	        lineHeight: 0
 	      };
-	      //add author text somewhere
-	      //need to adjust for additional pages
-	      //make comment body an unsorted or sorted list?
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -20243,6 +20234,64 @@
 	  value: true
 	});
 
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function parseLinks(comment, id) {
+	  if (comment.indexOf('htt') === -1) {
+	    return _react2.default.createElement(
+	      'p',
+	      { className: 'authorCommentBody' },
+	      comment
+	    );
+	  }
+	  var re = /\s\n|\s/g;
+	  var currentComment = comment.split(re);
+	  for (var x = 0; x < currentComment.length; x++) {
+	    var linkURL = void 0;
+	    var linkText = 'Link';
+	    if (currentComment[x].indexOf('htt') !== -1) {
+	      if (currentComment[x].indexOf(']') !== -1) {
+	        var g = currentComment[x].substring(0, currentComment[x].indexOf(']')) + "] ";
+	        currentComment[x - 1] = currentComment[x - 1] + " " + g;
+	      }
+	      if (currentComment[x].indexOf(')') === -1) {
+	        linkURL = currentComment[x].substring(currentComment[x].indexOf('htt'), currentComment[x].length);
+	        console.log(currentComment[x]);
+	      } else {
+	        linkURL = currentComment[x].substring(currentComment[x].indexOf('htt'), currentComment[x].indexOf(')'));
+	      }
+	      currentComment[x] = _react2.default.createElement(
+	        'a',
+	        { href: linkURL, key: id + x },
+	        'Link '
+	      );
+	    } else {
+	      currentComment[x] = currentComment[x] + ' ';
+	    }
+	  }
+	  currentComment.join('');
+	  return _react2.default.createElement(
+	    'p',
+	    { className: 'authorCommentBody' },
+	    currentComment
+	  );
+	}
+	exports.default = parseLinks;
+
+/***/ },
+/* 165 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(2);
@@ -20253,7 +20302,7 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _lodash = __webpack_require__(165);
+	var _lodash = __webpack_require__(166);
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -20296,7 +20345,6 @@
 	  }, {
 	    key: 'newSubReddit',
 	    value: function newSubReddit(subReddit) {
-	      //maybe add something to slow this fx down
 	      this.setState({ subReddit: subReddit });
 	      this.props.updateSubReddit(subReddit);
 	    }
@@ -20308,7 +20356,7 @@
 	exports.default = SearchBar;
 
 /***/ },
-/* 165 */
+/* 166 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/**
@@ -32663,10 +32711,10 @@
 	  }
 	}.call(this));
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(166)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(167)(module), (function() { return this; }())))
 
 /***/ },
-/* 166 */
+/* 167 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -32682,7 +32730,7 @@
 
 
 /***/ },
-/* 167 */
+/* 168 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
