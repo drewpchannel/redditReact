@@ -5,9 +5,10 @@
 }
 
 .SearchBar {
-  display: inline-flex;
+  display: flex;
   margin-top: 10px;
   width: 500px;
+  justify-content: center;
 }
 @media screen and (max-width: 641px) {
     .SearchBar {
@@ -93,4 +94,7 @@ a {
 }
 body {
   background-color: #868c71 ! important;
+}
+.g-signin2 {
+  visibility: hidden;
 }

@@ -13,6 +13,7 @@ class SearchBar extends Component {
     return (
       <div className="SearchBar">
         <input className="inputBar"
+          placeholder='Enter SubReddit Here'
           onChange={event => this.newSubReddit(event.target.value)} />
       </div>
     );

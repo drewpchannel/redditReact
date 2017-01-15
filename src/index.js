@@ -73,10 +73,6 @@ class App extends Component {
         <SearchBar 
           updateSubReddit = {subReddit => setSubReddit(subReddit)}
         />
-        <SignIn 
-          findUserEmail = {userEmail => this.setUserEmail(userEmail)}
-          userEmailState = {this.state.userEmail}
-        />
         <RedditList
           redditDL = {this.state.redditDL}
           loadMorePosts = {this.loadAdditionalPosts.bind(this)}
