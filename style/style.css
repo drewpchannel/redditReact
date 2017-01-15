@@ -64,6 +64,13 @@ a {
   font-weight: 600;
   line-height: 15px;
 }
+@media screen and (max-width: 480px) {
+    a {
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 9px;
+    }
+}
 .authorLink {
   font-size: 14px;
   font-weight: bold;
@@ -80,7 +87,4 @@ a {
 }
 body {
   background-color: #868c71 ! important;
-}
-.abcRioButtonContentWrapper {
-  
 }
