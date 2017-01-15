@@ -12,7 +12,7 @@
 }
 @media screen and (max-width: 641px) {
     .SearchBar {
-        width: auto;
+        width: 90%;
     }
 }
 
@@ -67,9 +67,9 @@ a {
 }
 @media screen and (max-width: 641px) {
     a {
-        font-size: 14px;
+        font-size: 13px;
         font-weight: 500;
-        line-height: 9px;
+        line-height: 8px;
     }
 }
 .authorLink {
