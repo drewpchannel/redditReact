@@ -20025,7 +20025,7 @@
 	      }
 	    }
 	    var divSize = {
-	      width: 800
+	      width: 'auto'
 	    };
 	    var date = new Date(elem.data.created).toString();
 	    return _react2.default.createElement(
