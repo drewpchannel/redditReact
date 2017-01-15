@@ -19,7 +19,7 @@ const redditItemsList = (redditItems, redditListRef) => {
       }
     }
     let divSize = {
-      width: 800
+      width: 'auto'
     }
     let date = new Date(elem.data.created).toString();
     return (
