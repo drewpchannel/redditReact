@@ -6,10 +6,6 @@ const redditItemsList = (redditItems, redditListRef) => {
     let imageDefault = "http://images.clipartpanda.com/white-cloud-clipart-no-background-13270607091459405201simplecloud-bw.svg";
     let imageHeight = 300;
     let imageWidth = 300;
-    const scaleImageHeight = (height, width) => {
-      let newWidth = width/height * 300;
-      return newWidth;
-    }
     if (elem.data.preview) {
       const redditPost = elem.data.preview.images[0]
       if (redditPost.variants.gif) { 
@@ -25,7 +21,7 @@ const redditItemsList = (redditItems, redditListRef) => {
     return (
       <div key={elem.data.id + "div"} id={elem.data.id + "div"} style={divSize} className="redditItemBox" ref={elem.data.id} >
           <a href={imageDefault} target="_blank" className="redditItemImage">
-            <img key={elem.data.id + "img"} src={imageDefault} />
+            <img key={elem.data.id + "img"} src={imageDefault} className="redditItemImage" />
           </a>
           <div className="RedditPostDivs">
             <a key={elem.data.id} href={`https://www.reddit.com${elem.data.permalink}`} target="_blank" className="redditLinkText">{elem.data.title}</a>
