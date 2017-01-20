@@ -24,7 +24,9 @@ const redditItemsList = (redditItems, redditListRef) => {
     let date = new Date(elem.data.created).toString();
     return (
       <div key={elem.data.id + "div"} id={elem.data.id + "div"} style={divSize} className="redditItemBox" ref={elem.data.id} >
-          <img key={elem.data.id + "img"} src={imageDefault} className="redditItemImage" />
+          <a href={imageDefault} target="_blank">
+            <img key={elem.data.id + "img"} src={imageDefault} className="redditItemImage" />
+          </a>
           <div className="RedditPostDivs">
             <a key={elem.data.id} href={`https://www.reddit.com${elem.data.permalink}`} target="_blank" className="redditLinkText">{elem.data.title}</a>
             <br />
