@@ -26,11 +26,11 @@ const redditItemsList = (redditItems, redditListRef) => {
       <div key={elem.data.id + "div"} id={elem.data.id + "div"} style={divSize} className="redditItemBox" ref={elem.data.id} >
           <img key={elem.data.id + "img"} src={imageDefault} className="redditItemImage" />
           <div className="RedditPostDivs">
-            <a key={elem.data.id} href={`https://www.reddit.com${elem.data.permalink}`} className="redditLinkText">{elem.data.title}</a>
+            <a key={elem.data.id} href={`https://www.reddit.com${elem.data.permalink}`} target="_blank" className="redditLinkText">{elem.data.title}</a>
             <br />
-            <a href={`https://www.reddit.com/user/${elem.data.author}`} className='authorLink'>By: {elem.data.author}</a>
+            <a href={`https://www.reddit.com/user/${elem.data.author}`} target="_blank" className='authorLink'>By: {elem.data.author}</a>
             <br />
-            <a href={`https://www.reddit.com/r/${elem.data.subreddit}`} className="subRedditLinks">/r/{elem.data.subreddit}</a>
+            <a href={`https://www.reddit.com/r/${elem.data.subreddit}`} target="_blank" className="subRedditLinks">/r/{elem.data.subreddit}</a>
             <p className="datePosts">{date}</p>
             <CommentButton 
               currentRedditPost={elem} 
