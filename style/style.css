@@ -34,8 +34,8 @@
   box-shadow: 8px 5px 9px #37383d;
 }
 .redditItemImage {
-  width: 28%;
-  height: 50%;
+  width: 300px;
+  max-height: 100%;
 }
 .datePosts {
   font-size: 10px;
