@@ -18,7 +18,7 @@ function parseLinks (comment, id) {
       } else {
         linkURL = currentComment[x].substring(currentComment[x].indexOf('htt'), currentComment[x].indexOf(')'))
       }
-      currentComment[x] = <a href={linkURL} key={id + x}>Link </a>;
+      currentComment[x] = <a href={linkURL} target="_blank" key={id + x}>Link </a>;
     } else {
       currentComment[x] = `${currentComment[x]} `
     }
