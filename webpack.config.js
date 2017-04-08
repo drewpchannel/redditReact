@@ -22,19 +22,19 @@ module.exports = {
   resolve: {
     extensions: ['', '.js', '.jsx']
   },
-  plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify('production')
-      }
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        warnings: false
-      }
-    })
-  ],
+  // plugins: [
+  //   new webpack.optimize.OccurenceOrderPlugin(),
+  //   new webpack.DefinePlugin({
+  //     'process.env': {
+  //       'NODE_ENV': JSON.stringify('production')
+  //     }
+  //   }),
+  //   new webpack.optimize.UglifyJsPlugin({
+  //     compressor: {
+  //       warnings: false
+  //     }
+  //   })
+  // ],
   devServer: {
     historyApiFallback: true,
     contentBase: './'
