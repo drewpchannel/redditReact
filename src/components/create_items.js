@@ -9,7 +9,7 @@ const redditItemsList = (redditItems, redditListRef) => {
     if (elem.data.preview) {
       const redditPost = elem.data.preview.images[0]
       if (redditPost.variants.gif) { 
-        imageDefault = redditPost.variants.gif.source.url;
+        imageDefault = elem.data.thumbnail;
       } else {
         imageDefault = redditPost.source.url;
       }
