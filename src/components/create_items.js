@@ -44,7 +44,7 @@ const redditItemsList = (redditItems, redditListRef) => {
             <a href={`https://www.reddit.com/user/${elem.data.author}`} target="_blank" className='authorLink'>By: {elem.data.author}</a>
             <br />
             <a href={`https://www.reddit.com/r/${elem.data.subreddit}`} target="_blank" className="subRedditLinks">/r/{elem.data.subreddit}</a>
-
+            <p className="datePosts">{date}</p>
             <CommentButton 
               currentRedditPost={elem} 
               commentsJSON={`https://www.reddit.com${elem.data.permalink}`} 
