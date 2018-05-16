@@ -3,20 +3,18 @@ import jsStyle from './jsStyles/jsStyle';
 import redditItemsList from './create_items';
 
 class RedditList extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
-    this.scrolls = 0;
   }
-  componentDidMount () {
-    const count = this;
-    const countLimit = _.throttle(this.countScrolls, 1000);
-    window.addEventListener('scroll', countLimit.bind(this));
-  }
-  countScrolls () {
-    this.scrolls++;
-    if (this.scrolls % 7 === 0) {
-      this.props.loadMorePosts();
-      this.scroll = 0;
+  componentDidMount() {
+    let height = Math.max (document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight );
+    window.onscroll = () => {
+      if (height - document.documentElement.scrollTop < 0) {
+        console.log('Load triggers')
+        height = Math.max (document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight );
+        document.documentElement.scrollTop = 0
+        this.props.loadMorePosts();
+      }
     }
   }
   render() {
